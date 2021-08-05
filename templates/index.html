@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>فروشگاه اینترنتی</title>
+    <link href="{% static 'css/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/landing/style.css' %}" type="text/css">
+    <link href="{% static 'fonts/FontAwesome.Pro.5.15.2.Web/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/swiper-bundle.min.css' %}" rel="stylesheet">
+    <style>
+        header .header .headerRight .logo {
+            background-size: contain;
+            background: url("{% get_media_prefix %}templates_images/logo.svg") no-repeat center;
+            display: block;
+            width: 128px;
+            height: 30px;
+            margin: 10px;
+        }
+
+        .specialOffer .slider .bannerSpecial {
+            height: 386px;
+            display: block;
+            background: url("{% get_media_prefix %}templates_images/banner/banner_3.png") center;
+            background-size: cover;
+        }    </style>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="headerRight">
+            <a href="#" class="logo"></a>
+            <i class="fal fa-search"></i>
+            <input type="text" class="searchBox" placeholder="جستجو در فروشگاه ...">
+        </div>
+        <div class="headerLeft">
+            <a href="">
+                <i class="far fa-user-alt"></i>
+                ورود به حساب کاربری
+            </a>
+            <a href="">
+                <i class="far fa-shopping-cart"></i>
+            </a>
+        </div>
+    </div>
+    <nav>
+        <div class="container">
+            <ul class="flex">
+                <li class="menu1">
+                    <ul class="flex">
+                        <li>
+                            دسته بندی کالاها
+                        </li>
+                        <li><a href="">سوپر مارکت</a></li>
+                        <li><a href="">تخفیف ها و پیشنهادها</a></li>
+                        <li><a href="">دیجی کالای من</a></li>
+                        <li><a href="">دیجی پلاس</a></li>
+                        <li><a href="">دیجی کلاب</a></li>
+                        <li><a href="">سوال دارید؟</a></li>
+                    </ul>
+                </li>
+                <li class="sendTo">
+                    <sapan>لطفا شهر و استان خود را انتخاب کنید</sapan>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    <article class="container">
+        <div class="flex">
+            <section class="slider">
+                <!-- Swiper -->
+                <div class="swiper-container s0">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_1.jpg" alt=""></a></div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_2.jpg"
+                                alt=""></a>
+                        </div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_3.jpg"
+                                alt=""></a>
+                        </div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_4.jpg"
+                                alt=""></a>
+                        </div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_5.jpg"
+                                alt=""></a>
+                        </div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_6.jpg"
+                                alt=""></a>
+                        </div>
+                        <div class="swiper-slide"><a href="#"><img
+                                src="{% get_media_prefix %}templates_images/slider/slider_7.jpg"
+                                alt=""></a>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </section>
+            <aside class="banner">
+                <a href="#"><img src="{% get_media_prefix %}templates_images/banner/banner_1.gif" alt=""></a>
+                <a href="#"><img src="{% get_media_prefix %}templates_images/banner/banner_2.jpg" alt=""></a>
+            </aside>
+        </div>
+    </article>
+    <article class="specialOffer">
+        <section class="slider container flex">
+            <div class="right">
+                <a class="bannerSpecial" href="">
+                </a>
+                <div class="showAll">مشاهده همه</div>
+            </div>
+            <!-- Swiper -->
+            <div class="swiper-container s1">
+                {% for products in special_products %}
+                    <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a class="card" href="">
+                            <div class="image">
+                                <img src="{% get_media_prefix %}{{ products.product_url }}" alt="">
+                            </div>
+                            <div class="title">
+                                {{ products.product_name }}
+                            </div>
+                            <div class="price">
+                                <div class="oldPrice">
+                                    <del>23000</del>
+                                    <span class="percent">20%</span>
+                                    <div class="newPrice">
+                                        <span>32000</span>
+                                        <span>تومان</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timer"></div>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+    </article>
+</main>
+<footer></footer>
+<script type="text/javascript" src={% static '/js/swiper-bundle.min.js' %}></script>
+<script>
+    var swiper0 = new Swiper('.s0', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        autoplay: {
+            delay: 1500,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+<script>
+    var swiper1 = new Swiper('.s1', {
+        slidesPerView: 4,
+        spaceBetween: 20,
+        direction: getDirection(),
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        on: {
+            resize: function () {
+                swiper.changeDirection(getDirection());
+            }
+        }
+    });
+
+    function getDirection() {
+        var windowWidth = window.innerWidth;
+        var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+
+        return direction;
+    }
+</script>
+</body>
+</html>
