@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,28 +8,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>فروشگاه اینترنتی</title>
     <!--bootstrap css-->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-rtl.css">
-    <link rel="stylesheet" href="css/icon.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/slider/cssfull.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="fonts/FontAwesome.Pro.5.15.2.Web/css/all.min.css">
-    <link rel="stylesheet" href="css/swiper-bundle.min.css">
+ <!--bootstrap css-->
+    <link href="{% static 'css/swiper-bundle.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-rtl.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slider/cssfull.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.cs' %}s">
+    <link rel="stylesheet" href="{% static 'fonts/FontAwesome.Pro.5.15.2.Web/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
 
-    <link rel="stylesheet" href="css/slider/css1.css" media="screen and (max-width: 1365px)"/>
-    <link rel="stylesheet" href="css/slider/css2.css" media="screen and (min-width: 1366px)"/>
-    <link rel="stylesheet" href="css/slider/css3.css" media="screen and (min-width: 1680px)"/>
+    <link rel="stylesheet" href="{% static 'css/slider/css1.css' %}" media="screen and (max-width: 1365px)"/>
+    <link rel="stylesheet" href="{% static 'css/slider/css2.css' %}" media="screen and (min-width: 1366px)"/>
+    <link rel="stylesheet" href="{% static 'css/slider/css3.css' %}" media="screen and (min-width: 1680px)"/>
     <!--bootstrap js-->
-    <script src="js/popper.min.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/slider1.js"></script>
-    <script src="js/slider2.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/slider1.js' %}"></script>
+    <script src="{% static 'js/slider2.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
 </head>
 <body>
 <header>
@@ -231,10 +234,9 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item" style="margin-top: 1px"><a href="">فروشگاه اینترنتی دیجی کالا</a></li>
-                    <li class="breadcrumb-item"><a href="">کالای دیجیتال</a></li>
-                    <li class="breadcrumb-item"><a href="">کامپیوتر و تجهیزات جانبی</a></li>
-                    <li class="breadcrumb-item"><a href="">هدفون , هدست , میکروفون</a></li>
-                    <li class="breadcrumb-item active">هنذفری بلوتوث مدل HBQ-I7</li>
+                    <li class="breadcrumb-item"><a href="">{{product.category_id.parent_category.category_name}}</a></li>
+                    <li class="breadcrumb-item"><a href="">{{product.category_id.category_name}}</a></li>
+                    <li class="breadcrumb-item active">{{ product.product_name }}</li>
                 </ol>
             </nav>
         </div>
@@ -255,15 +257,7 @@
                     </div>
                     <div class="col-lg-9 col-10">
                         <div class="box_img border-bottom text-center pt-0 pt-md-4">
-                            <img src="images/han1.JPG" class="img-fluid">
-                        </div>
-                        <div class="box_list_img mt-3 pt-0 pt-md-5 text-center">
-                            <ul class="list-inline">
-                                <li class="list-inline-item"><img src="images/img_h1.jpg" alt=""></li>
-                                <li class="list-inline-item"><img src="images/img_h2.jpg" alt=""></li>
-                                <li class="list-inline-item"><img src="images/img_h4.jpg" alt=""></li>
-                                <li class="list-inline-item"><i class="material-icons">more_horiz</i></li>
-                            </ul>
+                            <img src="{% get_media_prefix %}{{ product.product_url }}" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -272,8 +266,8 @@
                 <div class="row text-center text-md-left ">
                     <div class="col-md-9 pt-3">
                         <h1 class="product-title">
-                            هندزفری بلوتوث مدل HBQ-I7
-                            <span>HBQ-I7 Bluetooth Handsfree
+                            {{ product.category_id.category_name }} {{ product.product_name }}
+                            <span>{{ product.category_id.category_name }} {{ product.product_name }}
 </span>
                         </h1>
                     </div>
@@ -292,12 +286,12 @@
                                 <li class="list-inline-item">
                                     <span>برند</span>
                                     :
-                                    <span>متفرقه</span>
+                                    <span>{{ product.manufacturer_id.manufacturer_name }}</span>
                                 </li>
                                 <li class="list-inline-item pr-3">
                                     <span>دسته بندی</span>
                                     :
-                                    <span><a href="#">هنذفری</a></span>
+                                    <span><a href="#">{{ product.category_id.category_name }}</a></span>
                                 </li>
                             </ul>
                         </div>
@@ -355,7 +349,7 @@
                         </div>
                         <div class="border_bottom mt-3"></div>
                         <div class="box_price mt-2 text-center text-md-left">
-                            <p>66,000 تومان</p>
+                            <p>{{price}} تومان</p>
                             <a href="#" class="btn btn_custom2 shadow-sm"><i class="material-icons">shopping_cart</i>افزودن
                                 به سبد خرید</a>
                         </div>

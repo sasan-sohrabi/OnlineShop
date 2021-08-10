@@ -72,6 +72,8 @@ class Products(BaseModel):
         return cls.objects.filter(category_id__parent_category__category_name=category)
 
 
+
+
 class CategoryAttributeValue(BaseModel):
     category_id = models.ForeignKey(Category, verbose_name=_("Category"), on_delete=models.CASCADE,
                                     help_text=_("Category of Attribute"))
