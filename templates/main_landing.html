@@ -42,10 +42,12 @@
             <input type="text" class="searchBox" placeholder="جستجو در فروشگاه ...">
         </div>
         <div class="headerLeft">
-            <a href="">
+            <a href="{% url 'login' %}">
                 <i class="far fa-user-alt"></i>
                 ورود به حساب کاربری
             </a>
+            <span>{{request.user}}</span>
+            <span ><a  class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
             <a href="">
                 <i class="far fa-shopping-cart"></i>
             </a>

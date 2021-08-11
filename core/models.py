@@ -58,7 +58,7 @@ class User(AbstractUser):
     objects = MyUserManager()
 
     phone = models.CharField(max_length=20, unique=True, verbose_name=_("Phone Number"), validators=[
-        RegexValidator(regex=r'^((\+98|0)9\d{9})$', message=_('Phone Number Is Not Correct!'))])
+        RegexValidator(regex=r'^((\+98|0)9\d{9})$', message=_('Phone Number Is Not Correct!'))], null=True)
 
     GENDER_CHOICES = (
         ('male', 'MALE'),
