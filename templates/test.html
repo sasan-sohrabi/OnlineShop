@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for p in category.products_set.all %}
+    <p>{{ p.product_name }}</p>
+    {% for c in p.price_set.all %}
+        <p>{{ c.price }}</p>
+    {% endfor %}
+    {% for d in p.discount_set.all %}
+        <p>{{ d.final_price }}</p>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

@@ -544,7 +544,7 @@ header.main-header .cart .dropdown-menu .basket-submit {
 header.main-header .main-menu {
     width: 100%;
     float: right;
-    background: #616161;
+    background: #fff !important;
     margin-top: 15px;
     border-bottom: 2px solid #000;
 }
@@ -555,6 +555,7 @@ header.main-header .main-menu .list {
     padding-right: 0;
     position: relative;
     list-style: none;
+    background: #FFFFFF !important;
 }
 
 header.main-header .main-menu .list .list-item {

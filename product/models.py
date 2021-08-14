@@ -21,6 +21,7 @@ class Category(BaseModel):
                                     default=None, null=True, blank=True)
     parent_category = models.ForeignKey('self', verbose_name=_("Parent Category"), on_delete=models.CASCADE,
                                         help_text=_("Category of Parent"), null=True, blank=True)
+    slug = models.SlugField(max_length=500, unique=True, null=True, blank=True)
 
     class Meta:
         ordering = ['-depth']
@@ -59,6 +60,7 @@ class Products(BaseModel):
                                    default=None, null=True, blank=True)
     category_id = models.ForeignKey(Category, verbose_name=_("Category"), on_delete=models.CASCADE,
                                     help_text=_("Category of Product"))
+    slug = models.SlugField(max_length=500, unique=True, null=True, blank=True)
 
     class Meta:
         ordering = ['product_name']
