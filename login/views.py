@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 # Create your views here.
+from core.models import User
 from customer.models import Customer
 from .models import *
 from .forms import CreateUserForm
@@ -25,13 +26,15 @@ def register_page(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
+            user_update = User.objects.filter(id=user.id).update(phone=username)
+            # user_update.save()
             c = Customer.objects.create(user=user)
             c.save()
             messages.success(request, 'Account was created for ' + username)
-            return redirect('login')
+            return redirect('login/')
 
     context = {'form': form}
-    return render(request, 'temp/register.html', context)
+    return render(request, 'register.html', context)
 
 
 @unauthenticated_user
@@ -49,7 +52,7 @@ def login_page(request):
             messages.info(request, 'Username OR password is incorrect')
 
     context = {}
-    return render(request, 'temp/login.html', context)
+    return render(request, 'login.html', context)
 
 
 def logout_user(request):
