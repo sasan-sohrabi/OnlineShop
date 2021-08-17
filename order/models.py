@@ -12,7 +12,7 @@ from product.models import Products
 class Ordered(BaseModel):
     customer_id = models.ForeignKey(Customer, verbose_name=_("Customer"), help_text=_("Customer of Order"),
                                     on_delete=models.CASCADE)
-    purchase_date = models.DateTimeField(verbose_name=_("Date"), help_text=_("Date of Purchase"), null=True)
+    purchase_date = models.DateTimeField(verbose_name=_("Date"), help_text=_("Date of Purchase"), blank=True, null=True)
     # STATUS_CHOICES = (
     #     ('processing', 'PROCESS'),
     #     ('paid', 'PAID')
@@ -20,10 +20,20 @@ class Ordered(BaseModel):
     # status_order = models.CharField(max_length=10, choices=STATUS_CHOICES, default='processing',
     #                                 verbose_name=_("Order Status"),
     #                                 help_text=_("Status of Order, example: processing, paid, ..."))
-    complete = models.BooleanField(verbose_name=_("Order Status"), help_text=_("Status of Order, example: True, False, ..."), default=False)
+    complete = models.BooleanField(verbose_name=_("Order Status"),
+                                   help_text=_("Status of Order, example: True, False, ..."), default=False)
 
     def __str__(self):
         return f"{self.id}#"
+
+    def total_value_cart(self):
+        total = 0
+        for suborder in Ordered.objects.get(id=self.id).orderedproduct_set.all():
+            for price in suborder.product_id.discount_set.all():
+                total += price.final_price() * suborder.quantity
+        print('id', self.id)
+        print('total', total)
+        return total
 
 
 class OrderedProduct(BaseModel):

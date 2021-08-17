@@ -157,7 +157,7 @@ class Discount(BaseModel):
                f" Discount Name: {self.discount_name}, Discount: {self.discount}"
 
     def final_price(self):
-        if self.is_fixed:
+        if not self.is_fixed:
             return Price.objects.get(id=self.products_id.id).price - self.discount * Price.objects.get(
                 id=self.products_id.id).price * 0.01
         else:

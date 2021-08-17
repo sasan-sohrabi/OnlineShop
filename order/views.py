@@ -4,6 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.utils import json
 
+from customer.models import Customer
 from order.models import Ordered, OrderedProduct
 from product.models import Products
 
@@ -13,10 +14,10 @@ def update_item(request):
     product_id = data['productId']
     action = data['action']
 
-    customer = request.user.customer_set
+    customer = Customer.objects.get(user=request.user)
     product = Products.objects.get(id=product_id)
-    order = Ordered.objects.get_or_create(customer_id=customer, complete=False)
-    order_item = OrderedProduct.objects.get_or_create(order_id=order, product_id=product)
+    order = Ordered.objects.get_or_create(customer_id=customer, complete=False)[0]
+    order_item = OrderedProduct.objects.get_or_create(order_id=order, product_id=product)[0]
 
     if action == 'add':
         order_item.quantity = (order_item.quantity + 1)
@@ -28,7 +29,6 @@ def update_item(request):
 
     if order_item.quantity <= 0:
         order_item.delete()
-
 
 
 

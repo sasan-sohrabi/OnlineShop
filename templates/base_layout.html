@@ -320,7 +320,7 @@
                             <div class="basket-header">
                                 <div class="basket-total">
                                     <span>مبلغ کل خرید:</span>
-                                    <span> ۲۳,۵۰۰</span>
+                                    <span>{{ order.total_value_cart }}</span>
                                     <span> تومان</span>
                                 </div>
                                 <a href="#" class="basket-link">
@@ -329,26 +329,27 @@
                                 </a>
                             </div>
                             <ul class="basket-list">
+                                {% for item in orderItem_total %}
                                 <li>
                                     <a href="#" class="basket-item">
                                         <button class="basket-item-remove"></button>
                                         <div class="basket-item-content">
                                             <div class="basket-item-image">
-                                                <img alt="" src="assets/img/cart/2324935.jpg">
+                                                <img alt="" src="{% get_media_prefix %}{{ item.product_id.product_url }}">
                                             </div>
                                             <div class="basket-item-details">
-                                                <div class="basket-item-title">هندزفری بلوتوث مدل S530
+                                                <div class="basket-item-title">{{ item.product_id.product_name }}
                                                 </div>
                                                 <div class="basket-item-params">
                                                     <div class="basket-item-props">
-                                                        <span> ۱ عدد</span>
-                                                        <span>رنگ مشکی</span>
+                                                        <span>{{ item.quantity }}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
+                                {% endfor %}
                             </ul>
                             <a href="#" class="basket-submit">ورود و ثبت سفارش</a>
                         </ul>

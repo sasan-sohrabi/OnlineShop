@@ -58,7 +58,6 @@
                                                 خاکستری
                                             </label>
                                         </div>
-
                                         <div class="radio">
                                             <input type="radio" name="radio1" id="radio2" value="option2" checked="">
                                             <label for="radio2">
@@ -74,8 +73,10 @@
                                     <div class="product-delivery-seller default">
                                         <p>
                                             <i class="now-ui-icons shopping_shop"></i>
-                                            <span>فروشنده:‌</span>
-                                            <a href="#" class="btn-link-border">نامعلوم</a>
+                                            {% for item in orderItem %}
+                                                <span>{{ item.product_id.product_name }}</span>
+                                                <a href="#" class="btn-link-border">نامعلوم</a>
+                                            {% endfor %}
                                         </p>
                                     </div>
                                     <div class="price-product defualt">
@@ -103,7 +104,9 @@
                                     </div>
                                     <div class="product-add default">
                                         <div class="parent-btn">
-                                            <button class="dk-btn dk-btn-info" id="addToCart" data-product="{{ product.id }}" data-action="add">افزودن به سبد خرید</button>
+                                            <button class="dk-btn dk-btn-info" id="addToCart"
+                                                    data-product="{{ product.id }}" data-action="add">افزودن به سبد خرید
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

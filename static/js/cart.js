@@ -24,4 +24,6 @@ function updateUserOrder(productId, action) {
         dataType: 'json'
     });
 
+    location.reload()
+
 }
