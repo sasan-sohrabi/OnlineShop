@@ -6,12 +6,12 @@ from django.views import View, generic
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 
-from order.models import OrderedProduct
+from order.models import OrderedProduct, Ordered
 from product.models import *
 from product.serializers import ProductSerializer
 
 
-class IndexView(generic.ListView):
+class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'special_products'
     model = Products
@@ -22,7 +22,7 @@ def category_list(request, category_slug):
     return render(request, 'category.html', {'category': category})
 
 
-class ProductCardView(generic.DetailView):
+class ProductCardView(DetailView):
     template_name = 'product.html'
     model = Products
     context_object_name = 'product'
@@ -34,6 +34,8 @@ class ProductCardView(generic.DetailView):
         if str(self.request.user) != 'AnonymousUser':
             context['orderItem'] = OrderedProduct.objects.filter(order_id__customer_id__user=self.request.user)
         return context
+
+
 
 
 

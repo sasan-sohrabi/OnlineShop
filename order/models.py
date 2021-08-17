@@ -31,8 +31,6 @@ class Ordered(BaseModel):
         for suborder in Ordered.objects.get(id=self.id).orderedproduct_set.all():
             for price in suborder.product_id.discount_set.all():
                 total += price.final_price() * suborder.quantity
-        print('id', self.id)
-        print('total', total)
         return total
 
 
@@ -45,3 +43,8 @@ class OrderedProduct(BaseModel):
 
     def __str__(self):
         return f"{self.id}# Product Name: {self.product_id.product_name}, OrderId: {self.order_id.id}, CustomerId: {self.order_id.customer_id}"
+
+    def price_suborder(self):
+        total = 0
+        suborder = OrderedProduct.objects.get(id=self.id)
+        return suborder.quantity * suborder.product_id.discount_set.get(products_id=self.product_id).final_price()

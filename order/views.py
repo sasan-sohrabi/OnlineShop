@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.views.generic import DetailView, ListView
 from rest_framework.utils import json
 
 from customer.models import Customer
@@ -30,7 +32,14 @@ def update_item(request):
     if order_item.quantity <= 0:
         order_item.delete()
 
-
-
-
     return JsonResponse('Item was added', safe=False)
+
+
+
+class OrderView(ListView):
+    template_name = 'cart.html'
+    model = Ordered
+    context_object_name = 'order_list'
+
+    def get_queryset(self):
+        return Ordered.objects.get(customer_id__user=self.request.user, complete=False)
