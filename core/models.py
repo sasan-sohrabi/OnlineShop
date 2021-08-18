@@ -72,7 +72,7 @@ class User(AbstractUser):
 
 
 class Address(BaseModel):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Owner"),
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,related_name='addresses', verbose_name=_("Owner"),
                               help_text=_("Owner of Address"))
 
     province = models.CharField(max_length=30, verbose_name=_("Province"),

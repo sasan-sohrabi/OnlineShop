@@ -4,10 +4,14 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import DetailView, ListView
+from rest_framework import generics, permissions
 from rest_framework.utils import json
 
+from core.models import User
 from customer.models import Customer
+from customer.serializers import UserSerializer
 from order.models import Ordered, OrderedProduct
+from order.serializers import OrderSerializer
 from product.models import Products
 
 
@@ -35,7 +39,6 @@ def update_item(request):
     return JsonResponse('Item was added', safe=False)
 
 
-
 class OrderView(ListView):
     template_name = 'cart.html'
     model = Ordered
@@ -43,3 +46,59 @@ class OrderView(ListView):
 
     def get_queryset(self):
         return Ordered.objects.get(customer_id__user=self.request.user, complete=False)
+
+
+# Api Views
+
+class OrderListApi(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    queryset = Ordered.objects.all()
+    # permission_classes = [
+    #     permissions.IsAdminUser
+    # ]
+
+
+class OrderDetailApi(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+    queryset = Ordered.objects.all()
+
+    # permission_classes = [
+    #     permissions.IsAuthenticated
+    # ]
+
+    # def get_queryset(self):
+    #     return Ordered.objects.filter(customer_id__user_id=self.request.user.id)
+#
+#
+# class AddressListApi(generics.ListCreateAPIView):
+#     serializer_class = AddressSerializer
+#
+#     permission_classes = [
+#         permissions.IsAuthenticated
+#     ]
+#
+#     def get_queryset(self):
+#         return Address.objects.filter(owner=self.request.user)
+#
+#
+# class AddressDetailApi(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class = AddressSerializer
+#     queryset = Address.objects.all()
+#
+#     permission_classes = [
+#         IsOwner
+#     ]
+#
+#
+# class CustomerListApi(generics.ListAPIView):
+#     serializer_class = CustomerSerializers_1
+#     queryset = Customer.objects.all()
+#
+#     # permission_classes = [
+#     #     permissions.IsAdminUser
+#     # ]
+#
+#
+# class CustomerDetailApi(generics.RetrieveUpdateAPIView):
+#     serializer_class = CustomerSerializers_1
+#     queryset = Customer.objects.all()

@@ -8,3 +8,4 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Products
         fields = '__all__'
 
+

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Customer(BaseModel):
-    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, verbose_name=_("Customer"),
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='customers', verbose_name=_("Customer"),
                              help_text=_("Customer Id"))
     national_code = models.IntegerField(verbose_name=_("National Code"),
                                         validators=[RegexValidator(regex=r'^[0-9]{10}$',

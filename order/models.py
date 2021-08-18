@@ -38,6 +38,7 @@ class OrderedProduct(BaseModel):
     product_id = models.ForeignKey(Products, verbose_name=_("Product"), help_text=_("Product of Order"),
                                    on_delete=models.CASCADE)
     order_id = models.ForeignKey(Ordered, verbose_name=_("Order"), help_text=_("Order of  SubOrder"),
+                                 related_name='orders',
                                  on_delete=models.CASCADE)
     quantity = models.IntegerField(verbose_name=_("Quantity"), help_text=_("Quantity of  SubOrder"), default=0)
 
