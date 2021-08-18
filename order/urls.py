@@ -10,4 +10,7 @@ urlpatterns = [
 
     path('orders/', OrderListApi.as_view(), name='orders'),
     path('orders/<int:pk>', OrderDetailApi.as_view(), name='order'),
+
+    path('orderproducts/', OrderedProductListApi.as_view(), name='orderproducts'),
+    path('orderproducts/<int:pk>', CustomerDetailApi.as_view(), name='orderproduct'),
 ]

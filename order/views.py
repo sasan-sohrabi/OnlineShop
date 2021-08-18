@@ -11,7 +11,7 @@ from core.models import User
 from customer.models import Customer
 from customer.serializers import UserSerializer
 from order.models import Ordered, OrderedProduct
-from order.serializers import OrderSerializer
+from order.serializers import OrderSerializer, OrderedProductSerializers, OrderedProductSerializers_1
 from product.models import Products
 
 
@@ -58,47 +58,28 @@ class OrderListApi(generics.ListAPIView):
     # ]
 
 
-class OrderDetailApi(generics.RetrieveUpdateAPIView):
-    serializer_class = UserSerializer
-    queryset = Ordered.objects.all()
+class OrderDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderSerializer
+    # queryset = Ordered.objects.all()
+
+    permission_classes = [
+        permissions.IsAuthenticated
+    ]
+
+    def get_queryset(self):
+        return Ordered.objects.filter(customer_id__user=self.request.user)
+
+#
+#
+class OrderedProductListApi(generics.ListAPIView):
+    serializer_class = OrderedProductSerializers
+    queryset = OrderedProduct.objects.all()
 
     # permission_classes = [
-    #     permissions.IsAuthenticated
-    # ]
-
-    # def get_queryset(self):
-    #     return Ordered.objects.filter(customer_id__user_id=self.request.user.id)
-#
-#
-# class AddressListApi(generics.ListCreateAPIView):
-#     serializer_class = AddressSerializer
-#
-#     permission_classes = [
-#         permissions.IsAuthenticated
-#     ]
-#
-#     def get_queryset(self):
-#         return Address.objects.filter(owner=self.request.user)
-#
-#
-# class AddressDetailApi(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class = AddressSerializer
-#     queryset = Address.objects.all()
-#
-#     permission_classes = [
-#         IsOwner
-#     ]
-#
-#
-# class CustomerListApi(generics.ListAPIView):
-#     serializer_class = CustomerSerializers_1
-#     queryset = Customer.objects.all()
-#
-#     # permission_classes = [
-#     #     permissions.IsAdminUser
+    #     permissions.IsAdminUser
 #     # ]
 #
 #
-# class CustomerDetailApi(generics.RetrieveUpdateAPIView):
-#     serializer_class = CustomerSerializers_1
-#     queryset = Customer.objects.all()
+class CustomerDetailApi(generics.RetrieveUpdateAPIView):
+    serializer_class = OrderedProductSerializers_1
+    queryset = OrderedProduct.objects.all()
